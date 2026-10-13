@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>المجد للتوصيل</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{--bg:#faf6f0;--card:#fff;--ink:#0f3d22;--tx:#2b3a31;--mute:#7a8a80;--g:#1b6b38;--gd:#0f3d22;--o:#e8682a;--tint:#e6f2e9;--sand:#f3eadd;--line:#e7dfd2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a14;--card:#16251c;--ink:#e6f2e9;--tx:#d3e2d9;--mute:#97ab9f;--tint:#1d3426;--sand:#22352a;--line:#2a4034}}
+:root[data-theme="dark"]{--bg:#0f1a14;--card:#16251c;--ink:#e6f2e9;--tx:#d3e2d9;--mute:#97ab9f;--tint:#1d3426;--sand:#22352a;--line:#2a4034}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Cairo,Tahoma,sans-serif;line-height:1.7}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--o);outline-offset:2px}
+.wrap{max-width:1152px;margin:auto;padding:0 20px}
+h1,h2,h3{color:var(--ink);margin:0}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:24px;color:var(--g)}
+.pin{width:38px;height:38px;border-radius:50%;background:var(--o);display:grid;place-items:center;font-size:18px;flex:none}
+nav{height:66px;border-bottom:1px solid var(--line);background:var(--bg);position:relative;z-index:5}
+nav.t{background:transparent;border-color:transparent}
+nav .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.links{display:flex;gap:22px;font-weight:600;font-size:15px;overflow-x:auto;white-space:nowrap;align-items:center}
+.links a.on{color:var(--o)}
+.sm{border:1px solid var(--line);background:var(--sand);color:var(--tx);border-radius:10px;padding:3px 12px;font-size:13px;font-weight:600;margin:2px}
+.sm.d{color:#c0392b}.sm.g{background:var(--g);color:#fff;border-color:var(--g)}
+.hero{padding:44px 0 26px;background:transparent}
+.badge{display:inline-block;background:var(--tint);color:var(--g);font-size:12px;font-weight:700;padding:3px 14px;border-radius:99px}
+.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.35;margin:14px 0}.hero h1 em{color:var(--o);font-style:normal}
+.hero p{font-size:17px;color:var(--mute);max-width:520px;margin:0 0 22px}
+.track{display:flex;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:5px;max-width:520px;box-shadow:0 4px 18px rgba(15,61,34,.08)}
+.track input{flex:1;min-width:0;border:0;background:transparent;color:var(--tx);font:inherit;padding:0 14px}
+.track button{border:0;border-radius:99px;padding:10px 20px;font-weight:700;color:#fff;background:var(--g);white-space:nowrap}
+.ads{display:flex;gap:14px;overflow-x:auto;margin:10px 0 24px;scroll-snap-type:x mandatory}
+.ads a{flex:none;width:min(420px,86%);height:150px;border-radius:20px;overflow:hidden;position:relative;scroll-snap-align:start;background:var(--sand)}
+.ads img{width:100%;height:100%;object-fit:cover}.ads b{position:absolute;inset-inline:0;bottom:0;padding:8px 14px;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff}
+.sec{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:18px 0 12px;flex-wrap:wrap}
+.sec input{padding:9px 16px;border:1px solid var(--line);border-radius:99px;background:var(--card);color:var(--tx);font:inherit;min-width:200px}
+.chips{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);color:var(--tx);border-radius:99px;padding:7px 20px;font-weight:600}
+.chip.on{background:var(--o);border-color:var(--o);color:#fff}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.sc{display:block;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;text-align:center}
+.sc span{display:grid;place-items:center;width:64px;height:64px;border-radius:18px;background:var(--sand);font-size:32px;margin:0 auto 8px}
+.sc small{color:var(--mute)}
+.svc{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:34px 0}
+.svc div{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 14px;text-align:center}
+.svc span{display:block;font-size:34px}.svc small{color:var(--mute)}
+footer{background:var(--tint);padding:26px 0;margin-top:40px;text-align:center;color:var(--mute);font-size:13px}
+.sh{background:linear-gradient(120deg,var(--g),var(--gd));border-radius:26px;padding:26px;display:flex;align-items:center;gap:18px;color:#fff;margin:20px 0}
+.sh .ic{width:68px;height:68px;border-radius:18px;background:rgba(255,255,255,.15);display:grid;place-items:center;font-size:34px;flex:none}
+.sh h1{color:#fff;font-size:26px}.sh small{opacity:.85}
+.lay{display:grid;grid-template-columns:330px 1fr;gap:26px;align-items:start;padding-bottom:50px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;margin-bottom:20px}
+.box h2{font-size:20px;margin-bottom:10px}
+.cart{position:sticky;top:12px}
+.cr{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.cr .q{background:var(--sand);border-radius:99px;padding:0 10px;font-size:12px;font-weight:700}.cr .m{margin-inline-start:auto}
+.ln{display:flex;justify-content:space-between;color:var(--mute);font-size:14px;padding:3px 0}
+.tt{display:flex;justify-content:space-between;font-weight:800;color:var(--ink);border-top:1px solid var(--line);margin-top:8px;padding-top:10px}
+.fm label{display:block;font-weight:700;font-size:14px;margin:10px 0 4px;color:var(--mute)}
+.fm input,.fm select,.fm textarea{width:100%;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--tx);font:inherit}
+.cta{width:100%;margin-top:14px;border:0;background:var(--o);color:#fff;border-radius:14px;padding:12px;font-weight:700;font-size:16px}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:12px}
+.pc .im{aspect-ratio:1/.85;background:var(--sand);border-radius:14px;display:grid;place-items:center;font-size:44px;overflow:hidden}
+.pc .im img{width:100%;height:100%;object-fit:cover}
+.pc h3{font-size:15px;margin:8px 0 0}.pc .pr{color:var(--o);font-weight:800}.pc small{color:var(--mute);display:block;line-height:1.4}
+.pc button{width:100%;margin-top:8px;border:0;background:var(--tint);color:var(--g);border-radius:12px;padding:8px;font-weight:700}
+.tl{display:grid;grid-template-columns:1fr 1.2fr;gap:24px;padding:30px 0 50px}
+#mp{height:420px;border-radius:22px;border:1px solid var(--line);z-index:1}
+.stp{display:flex;gap:12px;margin-top:12px;color:var(--mute)}.stp b{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-size:13px;flex:none}
+.stp.ok{color:var(--ink);font-weight:600}.stp.ok b{background:var(--g);color:#fff}
+.pl{font-size:12px;font-weight:700;border-radius:99px;padding:2px 12px;background:var(--tint);color:var(--g);white-space:nowrap}.pl.w{background:#fde8d8;color:var(--o)}
+.oc{border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px;background:var(--bg)}
+.oc small{color:var(--mute)}
+.er{color:#c0392b;min-height:22px;font-size:14px}.ok{color:var(--g)}
+.lnk{background:none;border:0;color:var(--g);font-weight:700;padding:4px}
+.emp{text-align:center;color:var(--mute);padding:22px}
+.ptb{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:860px){.lay,.tl,.ptb{grid-template-columns:1fr}.cart{position:static}.svc{grid-template-columns:1fr}.sh{flex-direction:column;text-align:center}.track button{padding:10px 12px;font-size:13px}.logo span:first-child{font-size:20px}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<footer><div class="wrap">© المجد للتوصيل 2026 — جميع الحقوق محفوظة</div></footer>
+<script type="module">
+const FB={apiKey:"AIzaSyBfIsnC8AvKDE4KTuJIeE4U0HrZuyMBB5Q",authDomain:"al-majd-46c27.firebaseapp.com",projectId:"al-majd-46c27",storageBucket:"al-majd-46c27.firebasestorage.app",messagingSenderId:"263183185490",appId:"1:263183185490:web:155cf3138501abdfee118b"};
+let auth,db,A,F,FAIL=null;
+try{const V="https://www.gstatic.com/firebasejs/10.14.1/",[m,a,f]=await Promise.all([import(V+"firebase-app.js"),import(V+"firebase-auth.js"),import(V+"firebase-firestore.js")]);const app=m.initializeApp(FB);A=a;F=f;auth=A.getAuth(app);db=F.getFirestore(app)}catch(e){FAIL=e;console.error(e)}
+if(FAIL){document.body.innerHTML=`<div style="font-family:Cairo,Tahoma,sans-serif;direction:rtl;padding:28px;max-width:520px;margin:auto;line-height:1.8"><h2>تعذّر الاتصال بـ Firebase</h2><p>تأكد من اتصال الإنترنت، وافتح الصفحة من رابط الاستضافة (GitHub Pages) وليس من عارض الملفات.</p><pre style="white-space:pre-wrap;font-size:12px;color:#c0392b">${String(FAIL)}</pre></div>`;throw FAIL}
+const img=(file,max=640,q=.7)=>new Promise((ok,no)=>{const r=new FileReader();r.onerror=no;r.onload=()=>{const i=new Image();i.onerror=no;i.onload=()=>{const k=Math.min(1,max/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=i.width*k;c.height=i.height*k;c.getContext("2d").drawImage(i,0,0,c.width,c.height);const d=c.toDataURL("image/jpeg",q);d.length>700000?no(new Error("الصورة كبيرة، اختر صورة أصغر")):ok(d)};i.src=r.result};r.readAsDataURL(file)});
+const {collection,doc,getDoc,setDoc,addDoc,updateDoc,deleteDoc,onSnapshot,query,where,serverTimestamp}=F;
+const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt=n=>(+n||0).toLocaleString("en-US")+" ج.س";
+const CAT={"سوبرماركت":"🛒","مخبوزات":"🥖","صيدلية":"💊","هدايا":"🧸","مطعم":"🍽️","خضار وفواكه":"🥬"};
+const OL={new:"تم استلام الطلب",preparing:"المتجر يجهّز طلبك",ready:"الطلب جاهز للاستلام",onway:"في الطريق إليك",done:"تم التسليم",cancelled:"ملغي"},SO=["new","preparing","ready","onway","done"];
+const EM={"auth/invalid-credential":"البريد أو كلمة المرور غير صحيحة.","auth/email-already-in-use":"هذا البريد مسجل مسبقًا.","auth/weak-password":"كلمة المرور ضعيفة (6 أحرف على الأقل).","auth/invalid-email":"البريد غير صالح."};
+const emsg=e=>EM[e.code]||e.message||"حدث خطأ";
+const km=(a,b)=>{if(!a||!b)return null;const r=x=>x*Math.PI/180,h=Math.sin(r(b.lat-a.lat)/2)**2+Math.cos(r(a.lat))*Math.cos(r(b.lat))*Math.sin(r(b.lng-a.lng)/2)**2;return 12742*Math.asin(Math.sqrt(h))};
+let U=null,P=null,ready=false,mode="in",cat="الكل",q="",cart={},cartStore=null,ck={addr:"",phone:"",pay:0,loc:null},sloc=null;
+let D={stores:[],ads:[],set:{deliveryFee:3000},myOrders:[],myStore:null,myProds:[],sOrders:[],prods:[]},un=[],pu=null,tu=[],M=null,mk={},lastO=null,rl=null;
+const L=(k,qy,f)=>onSnapshot(qy,s=>{D[k]=f?f(s):s.docs.map(d=>({id:d.id,...d.data()}));render(1)},e=>console.error(k,e.code));
+L("stores",query(collection(db,"stores"),where("status","==","active")));
+L("ads",query(collection(db,"ads"),where("active","==",true)));
+onSnapshot(doc(db,"settings","app"),s=>{D.set={deliveryFee:3000,...(s.data()||{})};render(1)});
+A.onAuthStateChanged(auth,u=>{U=u;P=null;un.forEach(f=>f());un=[];D.myOrders=[];D.myStore=null;D.myProds=[];D.sOrders=[];ready=true;if(!u){render();return}
+un.push(onSnapshot(doc(db,"users",u.uid),s=>{const r=P?.role;P=s.exists()?{id:u.uid,...s.data()}:null;if(P&&P.role!==r){sub();}render(1)}))});
+function sub(){const u=U.uid;if(P.role==="buyer")un.push(L("myOrders",query(collection(db,"orders"),where("buyerId","==",u))));
+if(P.role==="store"){un.push(L("myStore",query(collection(db,"stores"),where("ownerId","==",u)),s=>s.docs[0]?{id:s.docs[0].id,...s.docs[0].data()}:null));un.push(L("myProds",query(collection(db,"products"),where("ownerId","==",u))));un.push(L("sOrders",query(collection(db,"orders"),where("ownerId","==",u))))}}
+
+const nav=(t)=>{const h=location.hash;return `<nav class="${t?"t":""}"><div class="wrap"><a class="logo" href="#/"><span>المجد</span><span class="pin">📍</span></a><div class="links"><a href="#/">الرئيسية</a>${P?.role==="buyer"?`<a href="#/orders" class="${h==="#/orders"?"on":""}">طلباتي</a>`:""}${P?.role==="store"?`<a href="#/mystore" class="${h==="#/mystore"?"on":""}">متجري</a>`:""}${P?.role!=="rider"&&!P?`<a href="#/join">انضم لفريق التوصيل</a>`:""}${U?`<button class="sm" data-out="1">خروج</button>`:`<a href="#/auth" class="sm g">دخول</a>`}</div></div></nav>`};
+const stCard=s=>`<a class="sc" href="#/store/${s.id}"><span>${CAT[s.category]||"🏪"}</span><h3>${esc(s.name)}</h3><small>${esc(s.category)}</small></a>`;
+
+function home(){const cats=["الكل",...new Set(D.stores.map(s=>s.category))],L2=D.stores.filter(s=>(cat==="الكل"||s.category===cat)&&s.name.includes(q));
+return nav(1)+`<div class="wrap"><section class="hero"><span class="badge">• أونلاين الآن في مدينتك</span><h1>المجد: توصيل سريع وموثوق في متناول <em>يدك</em></h1><p>من الأكل والبقالة للطرود والخدمات، المجد بيوصلك كل حاجة تحتاجها أينما كنت، بسرعة وأمانة.</p>
+<form class="track" id="tf"><input id="tn" placeholder="اكتب رقم الطلب..." aria-label="رقم الطلب"><button>تتبع طلبك</button></form></section>
+${D.ads.length?`<div class="ads">${D.ads.map(a=>`<a href="${esc(a.link||"#")}" target="_blank" rel="noopener"><img src="${esc(a.img)}" alt=""><b>${esc(a.title)}</b></a>`).join("")}</div>`:""}
+<div class="sec"><h2>المتاجر</h2><input id="sq" placeholder="ابحث عن متجر..." value="${esc(q)}" aria-label="بحث"></div>
+<div class="chips">${cats.map(c=>`<button class="chip ${c===cat?"on":""}" data-c="${esc(c)}">${esc(c)}</button>`).join("")}</div>
+<div class="sg">${L2.length?L2.map(stCard).join(""):`<div class="emp" style="grid-column:1/-1">لا توجد متاجر متاحة الآن.</div>`}</div>
+<section class="svc"><div><span>🥗</span><h3>توصيل الطعام والبقالة</h3><small>Food &amp; Grocery Delivery</small></div><div><span>📦</span><h3>توصيل الطرود والرسائل</h3><small>Parcel &amp; Letter Delivery</small></div><div><span>🚚</span><h3>خدمات الشركات</h3><small>Business Services</small></div></section></div>`}
+
+function storeV(id){const s=D.stores.find(x=>x.id===id);if(!s)return nav()+`<div class="wrap"><div class="emp">المتجر غير متاح.</div></div>`;
+const its=Object.values(cart),sub=its.reduce((a,i)=>a+i.price*i.q,0),fee=+D.set.deliveryFee||0,pm=s.payMethods||[];
+return nav()+`<div class="wrap"><div class="sh"><div class="ic">${CAT[s.category]||"🏪"}</div><div><h1>${esc(s.name)}</h1><small>${esc(s.category)} · ${esc(s.address)}</small></div></div>
+<div class="lay"><aside class="box cart fm"><h2>🛍 سلتك</h2>${its.length&&cartStore===id?its.map(i=>`<div class="cr"><span>${esc(i.name)}</span><span class="q">×${i.q}</span><button class="sm m" data-m="${i.id}" aria-label="إنقاص">−</button></div>`).join("")+`<div class="ln"><span>المجموع</span><span>${fmt(sub)}</span></div><div class="ln"><span>التوصيل</span><span>${fmt(fee)}</span></div><div class="tt"><span>الإجمالي</span><span>${fmt(sub+fee)}</span></div>
+<label for="ca">العنوان / أقرب معلم</label><textarea id="ca" rows="2" data-ck="addr">${esc(ck.addr)}</textarea><label for="cp">رقم الهاتف</label><input id="cp" type="tel" data-ck="phone" value="${esc(ck.phone||P?.phone||"")}"><button type="button" class="sm" data-loc="1">${ck.loc?"✓ تم تحديد موقعك":"📍 استخدم موقعي"}</button>
+<label for="cy">طريقة الدفع</label><select id="cy" data-ck="pay">${pm.map((m,i)=>`<option value="${i}" ${+ck.pay===i?"selected":""}>${esc(m.label)}</option>`).join("")}</select><small style="color:var(--mute)">${esc(pm[+ck.pay]?.details||"")}</small><div class="er" id="er"></div><button class="cta" data-go="${id}">تأكيد الطلب ←</button>`:`<p class="emp">السلة فارغة. أضف منتجات للبدء.</p>`}</aside>
+<main><div class="pg">${D.prods.filter(p=>p.available!==false).map(p=>`<div class="pc"><div class="im">${p.img?`<img src="${esc(p.img)}" alt="">`:"📦"}</div><h3>${esc(p.name)}</h3><small>${esc(p.desc)}</small><div class="pr">${fmt(p.price)}</div><button data-a="${p.id}">+ أضف للسلة</button></div>`).join("")||`<div class="emp" style="grid-column:1/-1">لا توجد منتجات بعد.</div>`}</div></main></div></div>`}
+
+function authV(role){const up=mode==="up";return nav()+`<div class="wrap" style="max-width:460px;padding:26px 20px"><form class="box fm" id="af"><h2>${mode==="in"?"تسجيل الدخول":up?(role==="rider"?"طلب الانضمام لفريق التوصيل":"إنشاء حساب"):"استرجاع كلمة المرور"}</h2>
+${up?`<label for="nm">الاسم</label><input id="nm" required><label for="ph">رقم الهاتف</label><input id="ph" type="tel" required>
+<label for="rl">نوع الحساب</label><select id="rl"><option value="buyer" ${role==="buyer"?"selected":""}>مشتري</option><option value="store">صاحب متجر</option><option value="rider" ${role==="rider"?"selected":""}>عامل توصيل</option></select>
+<div id="stf" ${role==="store"?"":"hidden"}><label for="sn">اسم المتجر</label><input id="sn"><label for="sc">التصنيف</label><select id="sc">${Object.keys(CAT).map(c=>`<option>${c}</option>`).join("")}</select><label for="sa">عنوان المتجر</label><input id="sa"><label for="si">صورة بطاقة الهوية</label><input id="si" type="file" accept="image/*"><button type="button" class="sm" data-sloc="1">📍 تحديد موقع المتجر</button><small style="display:block;color:var(--mute)">بعد التسجيل يراجع المدير طلبك ويفعّله بعد دفع الاشتراك.</small></div>`:""}
+<label for="em">البريد الإلكتروني</label><input id="em" type="email" required autocomplete="email">${mode!=="fp"?`<label for="pw">كلمة المرور</label><input id="pw" type="password" required autocomplete="${up?"new-password":"current-password"}">`:""}
+<div class="er" id="er"></div><button class="cta" style="margin-top:4px">${mode==="in"?"دخول":up?"إنشاء الحساب":"إرسال رابط الاسترجاع"}</button>
+<div style="display:flex;justify-content:space-between;margin-top:8px">${mode!=="in"?`<button type="button" class="lnk" data-m2="in">لدي حساب</button>`:`<button type="button" class="lnk" data-m2="up">إنشاء حساب</button><button type="button" class="lnk" data-m2="fp">نسيت كلمة المرور؟</button>`}</div></form></div>`}
+
+function ordersV(){const O=[...D.myOrders].sort((a,b)=>(b.createdAt?.toMillis?.()||0)-(a.createdAt?.toMillis?.()||0));
+return nav()+`<div class="wrap" style="padding:24px 20px"><h2>طلباتي</h2>${O.length?O.map(o=>`<a class="oc" style="display:block;margin-top:12px" href="#/track/${o.id}"><b>${esc(o.storeName)}</b> <span class="pl ${o.status==="done"?"":"w"}">${OL[o.status]}</span><br><small>${(o.items||[]).map(i=>esc(i.name)+" ×"+i.q).join("، ")} — ${fmt(o.total)}</small></a>`).join(""):`<div class="emp">لا توجد طلبات بعد.</div>`}</div>`}
+
+function trackV(){return nav()+`<div class="wrap"><div class="tl"><div class="box" id="ti">جارٍ التحميل...</div><div id="mp"></div></div></div>`}
+function upd(){const o=lastO;if(!o||!$("#ti"))return;const k=Math.max(0,SO.indexOf(o.status)),d=km(rl,o.loc),eta=o.status==="onway"&&d!=null?`<p>⏱ يصلك خلال حوالي <b>${Math.max(1,Math.round(d*3))}</b> دقيقة (تقدير)</p>`:"";
+$("#ti").innerHTML=`<small>طلب #${esc(o.id)} · ${esc(o.storeName)}</small><h2>${OL[o.status]}</h2>${eta}${SO.map((s,i)=>`<div class="stp ${o.status!=="cancelled"&&i<=k?"ok":""}"><b>${i<=k?"✓":i+1}</b>${OL[s]}</div>`).join("")}
+<div class="oc" style="margin-top:14px">🛵 ${o.riderId?`<b>${esc(o.riderName)}</b> ${o.riderPhone?`<a class="sm" href="tel:${esc(o.riderPhone)}">📞 اتصال</a>`:""}`:"في انتظار قبول أحد العمال"}</div><b>${fmt(o.total)}</b> <small>· ${esc(o.payLabel)}</small>`;
+if(M){setMk("s","🏬",o.storeLoc);setMk("b","🏠",o.loc);setMk("r","🛵",rl);const pts=Object.values(mk).map(m=>m.getLatLng());if(pts.length)M.fitBounds(L2.latLngBounds(pts),{padding:[40,40],maxZoom:15})}}
+const L2=window.L;
+const ic=e=>L2.divIcon({html:`<div style="font-size:28px;line-height:1">${e}</div>`,className:"",iconSize:[30,30],iconAnchor:[15,15]});
+function setMk(k,e,p){if(!p)return;if(mk[k])mk[k].setLatLng([p.lat,p.lng]);else mk[k]=L2.marker([p.lat,p.lng],{icon:ic(e)}).addTo(M)}
+function startTrack(id){if(!U){$("#ti").innerHTML=`سجّل دخولك لتتبع الطلب. <a class="sm g" href="#/auth">دخول</a>`;return}
+M=L2.map("mp").setView([15.5007,32.5599],12);L2.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"© OpenStreetMap"}).addTo(M);let rid=null;
+tu.push(onSnapshot(doc(db,"orders",id),s=>{if(!s.exists()){$("#ti").textContent="لم نجد هذا الطلب.";return}lastO={id,...s.data()};if(lastO.riderId&&rid!==lastO.riderId){rid=lastO.riderId;tu.push(onSnapshot(doc(db,"riderLoc",rid),r=>{rl=r.data()||null;upd()}))}upd()},()=>{$("#ti").textContent="لا تملك صلاحية عرض هذا الطلب."}))}
+
+function myStoreV(){if(P&&P.role!=="store")return nav()+`<div class="wrap"><div class="emp">هذه الصفحة لأصحاب المتاجر.</div></div>`;const s=D.myStore,act=P?.status==="active"&&s?.status==="active";
+return nav()+`<div class="wrap" style="padding:24px 20px"><h2>لوحة متجري ${s?`— ${esc(s.name)}`:""}</h2>
+${!act?`<div class="box"><b>حسابك ${P?.status==="pending"||s?.status==="pending"?"بانتظار موافقة الإدارة":"موقوف"}.</b><p>لتفعيل المتجر: ادفع اشتراك المتجر <b>${fmt(D.set.subFee)}</b>.<br>${esc(D.set.payInfo||"سيتواصل معك المدير بتفاصيل الدفع.")}</p></div>`:""}
+${s?`<div class="ptb"><div class="box fm"><h2>طرق الدفع في متجرك</h2>${(s.payMethods||[]).map((m,i)=>`<div class="cr"><span><b>${esc(m.label)}</b><br><small>${esc(m.details)}</small></span><button class="sm d m" data-pd="${i}">حذف</button></div>`).join("")}${act?`<form id="pmf"><label for="pl">اسم الطريقة (مثال: تحويل بنكك)</label><input id="pl" required><label for="pt">التفاصيل (رقم الحساب واسم صاحبه)</label><input id="pt"><button class="cta">إضافة طريقة دفع</button></form>`:""}</div>
+${act?`<form class="box fm" id="pf"><h2>إضافة منتج</h2><label for="n1">الاسم</label><input id="n1" required><label for="r1">السعر (ج.س)</label><input id="r1" type="number" min="0" required><label for="d1">الوصف</label><input id="d1"><label for="i1">الصورة</label><input id="i1" type="file" accept="image/*"><div class="er" id="er"></div><button class="cta">إضافة المنتج</button></form>`:""}</div>
+<div class="box"><h2>منتجاتي</h2><div class="pg">${D.myProds.map(p=>`<div class="pc"><div class="im">${p.img?`<img src="${esc(p.img)}" alt="">`:"📦"}</div><h3>${esc(p.name)}</h3><div class="pr">${fmt(p.price)}</div><button data-pv="${p.id}">${p.available===false?"إظهار":"إخفاء"}</button><button data-pdel="${p.id}" style="color:#c0392b">حذف</button></div>`).join("")||`<div class="emp" style="grid-column:1/-1">لا توجد منتجات.</div>`}</div></div>
+<div class="box"><h2>الطلبات الواردة</h2>${[...D.sOrders].sort((a,b)=>(b.createdAt?.toMillis?.()||0)-(a.createdAt?.toMillis?.()||0)).map(o=>`<div class="oc"><b>${esc(o.buyerName)}</b> <span class="pl ${o.status==="done"?"":"w"}">${OL[o.status]}</span><br><small>${(o.items||[]).map(i=>esc(i.name)+" ×"+i.q).join("، ")}<br>${esc(o.payLabel)} · ${fmt(o.total)}${o.riderName?` · العامل: ${esc(o.riderName)}`:""}</small>${["new","preparing"].includes(o.status)?`<div><button class="sm g" data-os="${o.id}|${o.status==="new"?"preparing":"ready"}">${o.status==="new"?"بدء التجهيز":"جاهز للاستلام"}</button><button class="sm d" data-os="${o.id}|cancelled">إلغاء</button></div>`:""}</div>`).join("")||`<div class="emp">لا توجد طلبات.</div>`}</div>`:`<div class="emp">لم يتم العثور على متجرك.</div>`}</div>`}
+
+function clean(){tu.forEach(f=>f());tu=[];D.prods=[];if(pu){pu();pu=null}if(M){M.remove();M=null}mk={};lastO=null;rl=null}
+function render(soft){if(!ready)return;if(soft&&["INPUT","TEXTAREA","SELECT"].includes(document.activeElement?.tagName))return;
+const h=location.hash||"#/",a=$("#app");if(soft&&h.startsWith("#/track")&&M)return;
+if(h.startsWith("#/track")){if(M)return;clean();a.innerHTML=trackV();startTrack(h.split("/")[2]);return}
+if(h.startsWith("#/store/")){const id=h.split("/")[2];if(!pu)pu=onSnapshot(query(collection(db,"products"),where("storeId","==",id)),s=>{D.prods=s.docs.map(d=>({id:d.id,...d.data()}));render(1)});a.innerHTML=storeV(id)}
+else if(h==="#/auth"||h==="#/join"){if(U&&P){location.hash=P.role==="store"?"#/mystore":"#/";return}a.innerHTML=authV(h==="#/join"?"rider":"buyer")}
+else if(h==="#/orders")a.innerHTML=U?ordersV():authV("buyer");
+else if(h==="#/mystore")a.innerHTML=U?myStoreV():authV("buyer");
+else a.innerHTML=home()}
+addEventListener("hashchange",()=>{clean();if(location.hash==="#/join")mode="up";render()});
+
+document.addEventListener("click",async e=>{const t=e.target.closest("button,a");if(!t)return;const d=t.dataset;
+try{if(d.out){await A.signOut(auth);location.hash="#/"}
+if(d.m2){mode=d.m2;render()}
+if(d.c){cat=d.c;render(0)}
+if(d.a){const p=D.prods.find(x=>x.id===d.a),sid=location.hash.split("/")[2];if(cartStore!==sid){if(Object.keys(cart).length&&!confirm("سلتك من متجر آخر. هل تريد تفريغها؟"))return;cart={};cartStore=sid}cart[p.id]=cart[p.id]||{id:p.id,name:p.name,price:+p.price,q:0};cart[p.id].q++;render()}
+if(d.m){if(--cart[d.m].q<=0)delete cart[d.m];render()}
+if(d.loc||d.sloc)navigator.geolocation.getCurrentPosition(p=>{const c={lat:p.coords.latitude,lng:p.coords.longitude};if(d.loc){ck.loc=c;render()}else{sloc=c;t.textContent="✓ تم تحديد الموقع"}},()=>alert("فعّل خدمة الموقع في المتصفح."));
+if(d.go){const s=D.stores.find(x=>x.id===d.go),its=Object.values(cart),er=$("#er");if(!U||!P){location.hash="#/auth";return}
+if(!ck.addr.trim()||!(ck.phone||P.phone)){er.textContent="اكتب العنوان ورقم الهاتف.";return}
+const sub=its.reduce((a,i)=>a+i.price*i.q,0),m=(s.payMethods||[])[+ck.pay]||{label:"كاش عند الاستلام"};
+const r=await addDoc(collection(db,"orders"),{buyerId:U.uid,buyerName:P.name,buyerPhone:ck.phone||P.phone,ownerId:s.ownerId,storeId:s.id,storeName:s.name,storeLoc:s.lat!=null?{lat:s.lat,lng:s.lng}:null,items:its,sub,fee:+D.set.deliveryFee||0,total:sub+(+D.set.deliveryFee||0),payLabel:m.label,addr:ck.addr.trim(),loc:ck.loc,status:"new",riderId:null,createdAt:serverTimestamp()});
+cart={};ck.addr="";location.hash="#/track/"+r.id}
+if(d.pd!==undefined){const m=[...D.myStore.payMethods];m.splice(+d.pd,1);await updateDoc(doc(db,"stores",D.myStore.id),{payMethods:m})}
+if(d.pv){const p=D.myProds.find(x=>x.id===d.pv);await updateDoc(doc(db,"products",p.id),{available:p.available===false})}
+if(d.pdel&&confirm("حذف المنتج؟"))await deleteDoc(doc(db,"products",d.pdel));
+if(d.os){const[i,s]=d.os.split("|");await updateDoc(doc(db,"orders",i),{status:s})}}
+catch(x){alert("تعذر التنفيذ: "+(x.code||x.message))}});
+document.addEventListener("input",e=>{const k=e.target.dataset.ck;if(k)ck[k]=e.target.value;if(e.target.id==="sq"){q=e.target.value.trim();render()}});
+document.addEventListener("change",e=>{if(e.target.dataset.ck){ck[e.target.dataset.ck]=e.target.value;if(e.target.dataset.ck==="pay")render()}if(e.target.id==="rl")$("#stf").hidden=e.target.value!=="store"});
+document.addEventListener("submit",async e=>{e.preventDefault();const id=e.target.id,v=x=>$("#"+x)?.value.trim(),er=m=>{const n=$("#er");if(n)n.textContent=m};
+try{if(id==="tf"){const t=v("tn");if(t)location.hash="#/track/"+t}
+if(id==="af"){const em=v("em");if(mode==="in")await A.signInWithEmailAndPassword(auth,em,$("#pw").value);
+else if(mode==="fp"){await A.sendPasswordResetEmail(auth,em);er("تم إرسال رابط الاسترجاع لبريدك.")}
+else{const role=v("rl"),f=$("#si")?.files[0];if(role==="store"&&(!v("sn")||!f)){er("اكتب اسم المتجر وارفع صورة الهوية.");return}const idImg=role==="store"?await img(f,900,.7):null;
+const c=await A.createUserWithEmailAndPassword(auth,em,$("#pw").value),u=c.user.uid;
+await setDoc(doc(db,"users",u),{email:em,name:v("nm"),phone:v("ph"),role,status:role==="buyer"?"active":"pending",createdAt:serverTimestamp()});
+if(role==="store"){await setDoc(doc(db,"kyc",u),{idImg});await addDoc(collection(db,"stores"),{ownerId:u,ownerName:v("nm"),name:v("sn"),category:v("sc"),address:v("sa"),phone:v("ph"),lat:sloc?.lat??null,lng:sloc?.lng??null,status:"pending",payMethods:[{label:"كاش عند الاستلام",details:""}],createdAt:serverTimestamp()})}
+if(role==="rider")alert("تم إرسال طلبك. بعد موافقة الإدارة سجّل دخولك من تطبيق عمال التوصيل (staff.html).")}}
+if(id==="pmf"){await updateDoc(doc(db,"stores",D.myStore.id),{payMethods:[...(D.myStore.payMethods||[]),{label:v("pl"),details:v("pt")}]});e.target.reset()}
+if(id==="pf"){const f=$("#i1").files[0];await addDoc(collection(db,"products"),{storeId:D.myStore.id,ownerId:U.uid,name:v("n1"),price:+v("r1"),desc:v("d1"),img:f?await img(f,640,.7):"",available:true,createdAt:serverTimestamp()});e.target.reset()}}
+catch(x){er(emsg(x))}});
+setTimeout(()=>{if(!ready){ready=true;render()}},2500);
+render();
+</script>
+</body>
+</html>

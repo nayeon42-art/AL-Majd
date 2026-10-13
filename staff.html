@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>المجد - عمال التوصيل</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf6f0;--card:#fff;--ink:#0f3d22;--tx:#2b3a31;--mute:#7a8a80;--g:#1b6b38;--gd:#0f3d22;--o:#e8682a;--tint:#e6f2e9;--sand:#f3eadd;--line:#e7dfd2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a14;--card:#16251c;--ink:#e6f2e9;--tx:#d3e2d9;--mute:#97ab9f;--tint:#1d3426;--sand:#22352a;--line:#2a4034}}
+:root[data-theme="dark"]{--bg:#0f1a14;--card:#16251c;--ink:#e6f2e9;--tx:#d3e2d9;--mute:#97ab9f;--tint:#1d3426;--sand:#22352a;--line:#2a4034}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Cairo,Tahoma,sans-serif;line-height:1.7}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--o);outline-offset:2px}
+.wrap{max-width:640px;margin:auto;padding:0 16px 40px}
+h2,h3{color:var(--ink);margin:0}
+.top{background:var(--gd);color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:20px}
+.pin{width:32px;height:32px;border-radius:50%;background:var(--o);display:grid;place-items:center;font-size:15px}
+.on{border:0;border-radius:99px;padding:6px 16px;font-weight:700;background:#c0392b;color:#fff}.on.y{background:var(--g)}
+.tabs{display:flex;gap:8px;margin:14px 0}.tabs button{flex:1;border:1px solid var(--line);background:var(--card);color:var(--tx);border-radius:14px;padding:9px;font-weight:700}
+.tabs .s{background:var(--o);border-color:var(--o);color:#fff}
+.box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:14px}
+.box small{color:var(--mute)}
+.btn{border:0;background:var(--g);color:#fff;border-radius:12px;padding:10px 16px;font-weight:700;margin:4px 4px 0 0}.btn.o{background:var(--o)}.btn.l{background:var(--sand);color:var(--tx)}
+.pl{font-size:12px;font-weight:700;border-radius:99px;padding:2px 12px;background:var(--tint);color:var(--g)}.pl.w{background:#fde8d8;color:var(--o)}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.kp div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;text-align:center;color:var(--mute);font-size:13px}.kp b{display:block;font-size:28px;color:var(--ink)}
+.fm label{display:block;font-weight:700;font-size:14px;margin:10px 0 4px;color:var(--mute)}
+.fm input{width:100%;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--tx);font:inherit}
+.cta{width:100%;margin-top:14px;border:0;background:var(--o);color:#fff;border-radius:14px;padding:12px;font-weight:700;font-size:16px}
+.er{color:#c0392b;min-height:22px;font-size:14px}.lnk{background:none;border:0;color:var(--g);font-weight:700;padding:4px}
+.emp{text-align:center;color:var(--mute);padding:22px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="module">
+const FB={apiKey:"AIzaSyBfIsnC8AvKDE4KTuJIeE4U0HrZuyMBB5Q",authDomain:"al-majd-46c27.firebaseapp.com",projectId:"al-majd-46c27",storageBucket:"al-majd-46c27.firebasestorage.app",messagingSenderId:"263183185490",appId:"1:263183185490:web:155cf3138501abdfee118b"};
+let auth,db,A,F,FAIL=null;
+try{const V="https://www.gstatic.com/firebasejs/10.14.1/",[m,a,f]=await Promise.all([import(V+"firebase-app.js"),import(V+"firebase-auth.js"),import(V+"firebase-firestore.js")]);const app=m.initializeApp(FB);A=a;F=f;auth=A.getAuth(app);db=F.getFirestore(app)}catch(e){FAIL=e;console.error(e)}
+if(FAIL){document.body.innerHTML=`<div style="font-family:Cairo,Tahoma,sans-serif;direction:rtl;padding:28px;max-width:520px;margin:auto;line-height:1.8"><h2>تعذّر الاتصال بـ Firebase</h2><p>تأكد من اتصال الإنترنت، وافتح الصفحة من رابط الاستضافة (GitHub Pages) وليس من عارض الملفات.</p><pre style="white-space:pre-wrap;font-size:12px;color:#c0392b">${String(FAIL)}</pre></div>`;throw FAIL}
+const img=(file,max=640,q=.7)=>new Promise((ok,no)=>{const r=new FileReader();r.onerror=no;r.onload=()=>{const i=new Image();i.onerror=no;i.onload=()=>{const k=Math.min(1,max/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=i.width*k;c.height=i.height*k;c.getContext("2d").drawImage(i,0,0,c.width,c.height);const d=c.toDataURL("image/jpeg",q);d.length>700000?no(new Error("الصورة كبيرة، اختر صورة أصغر")):ok(d)};i.src=r.result};r.readAsDataURL(file)});
+const {doc,collection,setDoc,updateDoc,onSnapshot,query,where,serverTimestamp,runTransaction}=F;
+const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt=n=>(+n||0).toLocaleString("en-US")+" ج.س";
+const EM={"auth/invalid-credential":"البريد أو كلمة المرور غير صحيحة.","auth/email-already-in-use":"هذا البريد مسجل مسبقًا.","auth/weak-password":"كلمة المرور ضعيفة (6 أحرف على الأقل).","auth/invalid-email":"البريد غير صالح."};
+const km=(a,b)=>{if(!a||!b)return null;const r=x=>x*Math.PI/180,h=Math.sin(r(b.lat-a.lat)/2)**2+Math.cos(r(a.lat))*Math.cos(r(b.lat))*Math.sin(r(b.lng-a.lng)/2)**2;return 12742*Math.asin(Math.sqrt(h))};
+const OL={new:"جديد",preparing:"قيد التجهيز",ready:"جاهز",onway:"في الطريق"};
+let U=null,P=null,ready=false,mode="in",tab="or",on=false,wid=null,pos=null,lw=0,open=[],mine=[],set={radiusKm:5},un=[],sub=false;
+
+const beep=()=>{try{const c=new(window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator();o.frequency.value=880;o.connect(c.destination);o.start();setTimeout(()=>{o.stop();c.close()},500)}catch(e){}navigator.vibrate?.([300,100,300])};
+const near=o=>{const d=km(pos,o.storeLoc);return d==null||d<=(+set.radiusKm||5)};
+onSnapshot(doc(db,"settings","app"),s=>{set={radiusKm:5,...(s.data()||{})};render()});
+A.onAuthStateChanged(auth,u=>{U=u;P=null;sub=false;un.forEach(f=>f());un=[];open=[];mine=[];ready=true;if(!u){render();return}
+un.push(onSnapshot(doc(db,"users",u.uid),s=>{P=s.exists()?{id:u.uid,...s.data()}:null;if(P&&P.role==="rider"&&P.status==="active"&&!sub){sub=true;start()}render()}))});
+function start(){let init=true;
+un.push(onSnapshot(query(collection(db,"orders"),where("riderId","==",null),where("status","in",["new","preparing","ready"])),s=>{open=s.docs.map(d=>({id:d.id,...d.data()}));
+if(!init&&on)s.docChanges().forEach(c=>{if(c.type==="added"&&near(c.doc.data())){beep();if(window.Notification?.permission==="granted")new Notification("طلب جديد قريب منك 🛵")}});init=false;render()},e=>console.error(e.code)));
+un.push(onSnapshot(query(collection(db,"orders"),where("riderId","==",U.uid)),s=>{mine=s.docs.map(d=>({id:d.id,...d.data()}));render()},e=>console.error(e.code)))}
+
+function toggle(){if(on){on=false;navigator.geolocation.clearWatch(wid);setDoc(doc(db,"riderLoc",U.uid),{online:false},{merge:true});render();return}
+if(!navigator.geolocation){alert("المتصفح لا يدعم الموقع.");return}window.Notification?.requestPermission?.();beep();
+wid=navigator.geolocation.watchPosition(p=>{pos={lat:p.coords.latitude,lng:p.coords.longitude};if(Date.now()-lw>5000){lw=Date.now();setDoc(doc(db,"riderLoc",U.uid),{...pos,online:true,t:Date.now()})}render()},()=>{alert("فعّل خدمة الموقع ثم حاول مجددًا.");on=false;render()},{enableHighAccuracy:true});on=true;render()}
+
+const gm=(p,q)=>p?`https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}`:`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q||"")}`;
+function orders(){const act=mine.filter(o=>["new","preparing","ready","onway"].includes(o.status));
+const op=open.filter(near).map(o=>({...o,d:km(pos,o.storeLoc)})).sort((a,b)=>(a.d??1e9)-(b.d??1e9));
+return `<h2 style="margin-bottom:8px">طلباتي الحالية</h2>${act.length?act.map(o=>`<div class="box"><b>${esc(o.storeName)}</b> <span class="pl w">${OL[o.status]}</span><br><small>👤 ${esc(o.buyerName)} · 📍 ${esc(o.addr)}<br>🛍 ${(o.items||[]).map(i=>esc(i.name)+" ×"+i.q).join("، ")}<br>💰 ${esc(o.payLabel)} · المطلوب: <b>${fmt(o.total)}</b></small><div>
+<a class="btn l" href="${gm(o.storeLoc,o.storeName)}" target="_blank" rel="noopener">🗺 للمتجر</a><a class="btn l" href="${gm(o.loc,o.addr)}" target="_blank" rel="noopener">🗺 للعميل</a><a class="btn l" href="tel:${esc(o.buyerPhone)}">📞 العميل</a></div>
+${o.status==="onway"?`<button class="btn o" data-st="${o.id}|done">✓ تم التوصيل والدفع</button>`:`<button class="btn" data-st="${o.id}|onway">استلمت الطلب من المتجر</button>`}</div>`).join(""):`<div class="emp">لا توجد طلبات حالية.</div>`}
+<h2 style="margin:16px 0 8px">طلبات قريبة منك</h2>${!on?`<div class="emp">اضغط "غير متصل" بالأعلى لتبدأ استقبال الطلبات.</div>`:op.length?op.map(o=>`<div class="box"><b>${esc(o.storeName)}</b> ${o.d!=null?`<span class="pl">${o.d.toFixed(1)} كم</span>`:""}<br><small>📍 ${esc(o.addr)}<br>💰 ${esc(o.payLabel)} · ${fmt(o.total)}</small><br><button class="btn o" data-acc="${o.id}">قبول الطلب</button></div>`).join(""):`<div class="emp">لا توجد طلبات قريبة الآن. سيصلك تنبيه صوتي عند وصول طلب.</div>`}`}
+
+function prof(){const D=mine.filter(o=>o.status==="done"&&o.doneAt),n=new Date(),t0=new Date().setHours(0,0,0,0),ms=o=>o.doneAt.toMillis();
+const c=[D.filter(o=>ms(o)>=t0).length,D.filter(o=>ms(o)>=Date.now()-7*864e5).length,D.filter(o=>{const d=new Date(ms(o));return d.getMonth()===n.getMonth()&&d.getFullYear()===n.getFullYear()}).length];
+return `<div class="box"><h2>${esc(P.name)}</h2><small>${esc(P.email)} · ${esc(P.phone)}</small></div><div class="kp"><div>اليوم<b>${c[0]}</b></div><div>آخر 7 أيام<b>${c[1]}</b></div><div>هذا الشهر<b>${c[2]}</b></div></div><p class="emp">عدد الطلبات التي سلّمتها</p><button class="btn l" data-out="1" style="width:100%">تسجيل الخروج</button>`}
+
+function authV(){const up=mode==="up";return `<div class="wrap" style="padding-top:30px"><form class="box fm" id="af"><div class="logo" style="color:var(--g);margin-bottom:10px"><span>المجد</span><span class="pin">🛵</span></div><h2>${mode==="in"?"دخول عمال التوصيل":up?"طلب انضمام لفريق التوصيل":"استرجاع كلمة المرور"}</h2>
+${up?`<label for="nm">الاسم</label><input id="nm" required><label for="ph">رقم الهاتف</label><input id="ph" type="tel" required>`:""}<label for="em">البريد الإلكتروني</label><input id="em" type="email" required><label for="pw" ${mode==="fp"?"hidden":""}>كلمة المرور</label><input id="pw" type="password" ${mode==="fp"?"hidden":"required"} autocomplete="${up?"new-password":"current-password"}">
+<div class="er" id="er"></div><button class="cta" style="margin-top:4px">${mode==="in"?"دخول":up?"إرسال الطلب":"إرسال رابط الاسترجاع"}</button>
+<div style="display:flex;justify-content:space-between;margin-top:8px">${mode!=="in"?`<button type="button" class="lnk" data-m="in">لدي حساب</button>`:`<button type="button" class="lnk" data-m="up">طلب انضمام</button><button type="button" class="lnk" data-m="fp">نسيت كلمة المرور؟</button>`}</div></form></div>`}
+const msg=(h,b)=>`<div class="wrap" style="padding-top:30px"><div class="box"><h2>${h}</h2><p>${b}</p><button class="btn l" data-out="1">تسجيل الخروج</button></div></div>`;
+
+function render(){if(!ready)return;const a=$("#app");if(!U){if(!$("#af"))a.innerHTML=authV();return}
+if(!P){a.innerHTML=msg("جارٍ التحميل...","");return}
+if(P.role!=="rider"){a.innerHTML=msg("هذا الحساب ليس لعامل توصيل","استخدم حسابًا مسجلًا كعامل توصيل.");return}
+if(P.status!=="active"){a.innerHTML=msg(P.status==="pending"?"طلبك قيد المراجعة":"حسابك موقوف",P.status==="pending"?"سيفعّل المدير حسابك قريبًا، ثم يمكنك استقبال الطلبات.":"تواصل مع الإدارة.");return}
+a.innerHTML=`<div class="top"><div class="logo"><span>المجد</span><span class="pin">🛵</span></div><button class="on ${on?"y":""}" data-on="1">${on?"● متصل":"غير متصل"}</button></div><div class="wrap"><div class="tabs"><button class="${tab==="or"?"s":""}" data-t="or">الطلبات</button><button class="${tab==="pf"?"s":""}" data-t="pf">ملفي</button></div>${tab==="or"?orders():prof()}</div>`}
+
+document.addEventListener("click",async e=>{const t=e.target.closest("button");if(!t)return;const d=t.dataset;
+try{if(d.m){mode=d.m;$("#app").innerHTML=authV()}if(d.t){tab=d.t;render()}if(d.on)toggle();if(d.out)await A.signOut(auth);
+if(d.acc)await runTransaction(db,async tx=>{const r=doc(db,"orders",d.acc),s=await tx.get(r);if(s.data().riderId)throw new Error("سبقك عامل آخر لهذا الطلب.");tx.update(r,{riderId:U.uid,riderName:P.name,riderPhone:P.phone,acceptedAt:serverTimestamp()})});
+if(d.st){const[i,s]=d.st.split("|");await updateDoc(doc(db,"orders",i),s==="done"?{status:s,doneAt:serverTimestamp()}:{status:s})}}
+catch(x){alert(x.message||x.code)}});
+document.addEventListener("submit",async e=>{e.preventDefault();const v=x=>$("#"+x)?.value.trim(),er=m=>$("#er").textContent=m;
+try{const em=v("em");if(mode==="in")await A.signInWithEmailAndPassword(auth,em,$("#pw").value);
+else if(mode==="fp"){await A.sendPasswordResetEmail(auth,em);er("تم إرسال رابط الاسترجاع لبريدك.")}
+else{const c=await A.createUserWithEmailAndPassword(auth,em,$("#pw").value);await setDoc(doc(db,"users",c.user.uid),{email:em,name:v("nm"),phone:v("ph"),role:"rider",status:"pending",createdAt:serverTimestamp()})}}
+catch(x){er(EM[x.code]||x.message)}});
+setTimeout(()=>{if(!ready){ready=true;render()}},2500);
+render();
+</script>
+</body>
+</html>
